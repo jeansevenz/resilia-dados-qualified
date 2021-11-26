@@ -1,16 +1,28 @@
-def podio_olimpico(tempo_chegada1, tempo_chegada2, tempo_chegada3, nome_corredor1, nome_corredor2, nome_corredor3):
-  if tempo_chegada1 < tempo_chegada2 and tempo_chegada1 < tempo_chegada3:
-    if tempo_chegada2 < tempo_chegada3:
-        return f"1 - {nome_corredor1} - {tempo_chegada1} minutos\n2 - {nome_corredor2} - {tempo_chegada2} minutos\n3 - {nome_corredor3} - {tempo_chegada3} minutos\n"
-    else:
-        return f"1 - {nome_corredor1} - {tempo_chegada1} minutos\n2 -{nome_corredor3} - {tempo_chegada3} minutos\n3 - {nome_corredor2} - {tempo_chegada2} minutos\n"
-  elif tempo_chegada2 < tempo_chegada1 and tempo_chegada2 < tempo_chegada3:
-    if tempo_chegada1 < tempo_chegada3:
-        return f"1 - {nome_corredor2} - {tempo_chegada2} minutos\n2 - {nome_corredor1} - {tempo_chegada1} minutos\n 3 - {nome_corredor3} - {tempo_chegada3} minutos\n"
-    else:
-        return f"1 - {nome_corredor2} - {tempo_chegada2} minutos\n2 - {nome_corredor3} - {tempo_chegada3} minutos\n3 - {nome_corredor1} - {tempo_chegada1} minutos\n"
-  elif tempo_chegada3 < tempo_chegada1 and tempo_chegada3 < tempo_chegada2:
-    if tempo_chegada1 < tempo_chegada2:
-        return f"1 - {nome_corredor3} - {tempo_chegada3} minutos\n2 - {nome_corredor1} - {tempo_chegada1} minutos\n3 - {nome_corredor2} - {tempo_chegada2} minutos\n"
-    else:
-        return f"1 - {nome_corredor3} - {tempo_chegada3} minutos\n2 - {nome_corredor2} - {tempo_chegada2} minutos\n3 - {nome_corredor1} - {tempo_chegada1} minutos\n"
+import unittest
+from solution import podio_olimpico
+
+class Test(unittest.TestCase):
+    def setUp(self):
+        self.podio = (
+            f"1 - Fulano1 - 1 minutos\n"
+            f"2 - Fulano2 - 2 minutos\n"
+            f"3 - Fulano3 - 3 minutos\n"
+        )
+
+    def test_primeiro_segundo_terceiro(self):
+        self.assertEqual(podio_olimpico(1, 2, 3, "Fulano1", "Fulano2", "Fulano3"), self.podio)
+    
+    def test_primeiro_terceiro_segundo(self):
+        self.assertEqual(podio_olimpico(1, 3, 2, "Fulano1", "Fulano3", "Fulano2"), self.podio)
+    
+    def test_segundo_primeiro_terceiro(self):
+        self.assertEqual(podio_olimpico(2, 1, 3, "Fulano2", "Fulano1", "Fulano3"), self.podio)
+
+    def test_segundo_terceiro_primeiro(self):
+        self.assertEqual(podio_olimpico(2, 3, 1, "Fulano2", "Fulano3", "Fulano1"), self.podio)
+
+    def test_terceiro_primeiro_segundo(self):
+        self.assertEqual(podio_olimpico(3, 1, 2, "Fulano3", "Fulano1", "Fulano2"), self.podio)
+        
+    def test_terceiro_segundo_primeiro(self):
+        self.assertEqual(podio_olimpico(3, 2, 1, "Fulano3", "Fulano2", "Fulano1"), self.podio)
